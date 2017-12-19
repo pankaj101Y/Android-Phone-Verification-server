@@ -6,6 +6,7 @@ var {sendOTP}=require('./otp/sendOTP');
 var {verifyOTP}=require('./otp/verifyOTP');
 
 var app=express();
+const port=process.env.PORT||3000;
 
 app.use(bodyParser.json());
 
@@ -17,6 +18,6 @@ app.post('/verifyOTP',(req,res)=>{
   verifyOTP(req,res);
 });
 
-app.listen('3000',()=>{
+app.listen(port,()=>{
   console.log(`server is running now on port ${port}`);
 });
