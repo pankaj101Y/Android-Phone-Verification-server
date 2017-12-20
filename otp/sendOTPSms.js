@@ -13,7 +13,7 @@ const sendOtp = new SendOtp(authKey,sms);
    sendOtp.send(phoneNumber, 'openApp', otp, (err,data,response)=>{
      console.log(data);
      if(data.type=='success')
-        res.send({State:'send'});
+        res.send({State:'sent'});
      else res.send({State:'failed'});
    });
  }
