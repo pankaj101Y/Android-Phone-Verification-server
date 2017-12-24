@@ -19,7 +19,7 @@ function sendOTP(req,res) {
   },{
     $set:{
           timestamp:Math.floor((new Date().getTime())),
-          otp:Math.round(Math.random()*1000000)
+          otp:getOTP()
       }
    },{
      new:true
@@ -36,7 +36,7 @@ function sendFirstTime(req,res) {
   var unverifiedUser=new UnverifiedUser({
     timestamp:Math.floor((new Date().getTime())),
     phoneNumber:req.body.phoneNumber,
-    otp:Math.round(Math.random()*1000000)
+    otp:getOTP()
   });
 
   unverifiedUser.save().then((doc)=>{
@@ -48,6 +48,14 @@ function sendFirstTime(req,res) {
 
 function sendUtil(doc,res) {
   sendOTPSms(doc.phoneNumber,doc.otp,res);
+}
+
+function getOTP(){
+	var len=1000000;
+	var num=Math.round(Math.random()*len);
+	while((num%10)==0)
+		num=Math.round(Math.random()*len);
+	return num;
 }
 
 module.exports={sendOTP};
